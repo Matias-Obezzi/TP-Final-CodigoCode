@@ -1,0 +1,16 @@
+package edu.mobezzi.responses;
+
+public class CustomResponseAlumno implements CustomResponse<ResponseAlumno> {
+
+	private ResponseAlumno response;
+	
+	public CustomResponseAlumno(ResponseAlumno response) {
+		this.response = response;
+	}
+	
+	@Override
+	public ResponseAlumno getResponse() {
+		return this.response;
+	}
+	
+}

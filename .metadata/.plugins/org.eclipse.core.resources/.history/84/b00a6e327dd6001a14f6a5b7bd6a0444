@@ -1,0 +1,77 @@
+package edu.mobezzi.rest.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import edu.mobezzi.dao.AsistenciaDTO;
+import edu.mobezzi.dao.repositories.AsistenciaDtoRepository;
+import edu.mobezzi.responses.CustomResponseAsistencia;
+
+@CrossOrigin
+@RestController
+public class AsistenciaController {
+
+	@Autowired
+	private AsistenciaDtoRepository asistenciaRepository;
+	
+	@GetMapping(value="asistencia")
+	public List<AsistenciaDTO> getAsistencias(){
+		return this.asistenciaRepository.findAll();
+	}
+	
+	@GetMapping(value="asistencia/{id}")
+	public List<AsistenciaDTO> getAsistenciaByCursoId(@PathVariable int id){
+		try {
+			List<AsistenciaDTO> asistenciaCurso = new ArrayList<AsistenciaDTO>();
+			List<AsistenciaDTO> asistencia = this.asistenciaRepository.findAll();
+			for (AsistenciaDTO asi : asistencia) {
+				if(asi.getIdCurso() == id) {
+					asistenciaCurso.add(asi);
+				}
+			}
+			return asistenciaCurso;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	@PostMapping(value="asistencia")
+	public CustomResponseAsistencia modifyAsistencia(@RequestBody List<AsistenciaDTO> asistencias){
+		for (AsistenciaDTO asistencia : asistencias) {
+			try {
+				AsistenciaDTO modificacion = this.asistenciaRepository.findById(asistencia.getCursoClaseAlumno()).get();
+				modificacion.setClase(asistencia.getClase());
+				modificacion.setNumeroSocio(asistencia.getNumeroSocio());
+				modificacion.setIdCurso(asistencia.getIdCurso());
+				modificacion.setPresente(asistencia.getPresente());
+				this.asistenciaRepository.save(modificacion);
+			}catch(Exception e) {
+				CustomResponseAsistencia responseSave = this.saveAsistencia(asistencia);
+				if(responseSave.getResponse().isError()) {
+					return responseSave;
+				}
+			}
+		}
+		return new CustomResponseAsistencia(false, "Se guardo correctamente la asistencia al curso", null);
+	}
+	
+	private CustomResponseAsistencia saveAsistencia(AsistenciaDTO asistencia) {
+		try {
+			this.asistenciaRepository.save(asistencia);
+		}catch(Exception e) {
+			return new CustomResponseAsistencia(true, "Fallo al realizar el guardado de " + asistencia.getNumeroSocio(), asistencia);
+		}
+		return new CustomResponseAsistencia(false, "Se guardo correctamente la asistencia al curso", null);
+	}
+	
+}

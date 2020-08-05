@@ -1,0 +1,43 @@
+<div class="row mx-auto">
+    <input type="text" class="form-control col mr-2" (input)="filter($event)" placeholder="Filtrar por Código, Nivel, Categoría o Edad">
+    <button class="btn btn-primary text-center align-middle col-2" [routerLink]="['/cursos/nuevo']" routerLinkActive="router-link-active">
+        Añadir curso
+        <i _ngcontent-ejn-c46="" class="fas fa-plus"></i>
+    </button>
+</div>
+<div class="table-responsive p-0 mt-3 mb-2 border rounded">
+    <table class="table table-striped m-0">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center align-middle">Código</th>
+                <th scope="col" class="text-center align-middle">Nivel</th>
+                <th scope="col" class="text-center align-middle">Categoria</th>
+                <th scope="col" class="text-center align-middle">Alumnos</th>
+                <th scope="col" class="text-center align-middle">Edades</th>
+                <th scope="col" class="text-center align-middle">Dias</th>
+                <th scope="col" class="text-center align-middle">Valor</th>
+                <th scope="col" class="text-center align-middle" colspan="3">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let curso of cursosFiltrados">
+                <td class="text-center align-middle">{{curso.curso}}</td>
+                <td class="text-center align-middle">{{curso.nivel}}</td>
+                <td class="text-center align-middle">{{curso.categoria}}</td>
+                <td class="text-center align-middle">{{curso.cantAlumnos}}</td>
+                <td class="text-center align-middle">{{curso.edades}}</td>
+                <td class="text-center align-middle">{{curso.dias}}</td>
+                <td class="text-center align-middle">${{curso.valor}}</td>
+                <td class="text-center align-middle" style="cursor: pointer;" [routerLink]="['/cursos/asistencia', curso.curso]" routerLinkActive="router-link-active" title="Asistencia">
+                    <i class="fas fa-user"></i>
+                </td>
+                <td class="text-center align-middle" style="cursor: pointer;" [routerLink]="['/cursos/modificar', curso.curso]" routerLinkActive="router-link-active" title="Editar">
+                    <i class="fas fa-pencil-alt"></i>
+                </td>
+                <td class="text-center align-middle" style="cursor: pointer;" (click)="delete(curso)" title="Eliminar">
+                    <i class="fas fa-trash"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

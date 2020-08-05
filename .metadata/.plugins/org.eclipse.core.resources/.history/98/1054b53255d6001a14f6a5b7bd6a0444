@@ -1,0 +1,18 @@
+package edu.mobezzi.responses;
+
+import edu.mobezzi.dao.AsistenciaDTO;
+
+public class CustomResponseAsistencia implements CustomResponse<Response<AsistenciaDTO>> {
+
+	private Response<CursoDTO> response;
+	
+	public CustomResponseAsistencia(Response<CursoDTO> response) {
+		this.response = response;
+	}
+	
+	@Override
+	public Response<CursoDTO> getResponse() {
+		return this.response;
+	}
+	
+}

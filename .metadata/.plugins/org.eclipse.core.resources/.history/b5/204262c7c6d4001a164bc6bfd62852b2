@@ -1,0 +1,19 @@
+package edu.mobezzi.responses;
+
+import edu.mobezzi.dao.AlumnoDTO;
+
+public class CustomResponseAlumno implements CustomResponse<ResponseAlumno> {
+
+	private ResponseAlumno response;
+	
+	public CustomResponseAlumno(ResponseAlumno response) {
+		this.response = response;
+	}
+	
+	@Override
+	public ResponseAlumno getResponse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}

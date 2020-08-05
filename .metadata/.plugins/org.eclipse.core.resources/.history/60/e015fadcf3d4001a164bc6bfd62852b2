@@ -1,0 +1,58 @@
+package edu.mobezzi.dao;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "cursos")
+public class CursoDTO {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int curso;
+	
+	@Column(name="nombre")
+	private String nombre;
+
+	@Column(name="apellido")
+	private String apellido;
+
+	@Column(name="email")
+	private String email;
+
+	@Column(name="fecha_nacimiento")
+	private String fechaNacimiento;
+
+	@Column(name="obra_social")
+	private String obraSocial;
+
+	@Column(name="certificado")
+	private String certificado;
+
+	@Column(name="dni")
+	private String dni;
+
+	@Column(name="id_curso")
+	private String idCurso;
+
+	@Column(name="nombre_tutor")
+	private String nombreTutor;
+
+	@Column(name="apellido_tutor")
+	private String apellidoTutor;
+
+	@Column(name="dni_tutor")
+	private String dniTutor;
+	
+	@Column(name="email_tutor")
+	private String emailTutor;
+	
+	@Column(name="telefono_tutor")
+	private String telefonoTutor;
+
+
+}

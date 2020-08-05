@@ -1,0 +1,40 @@
+<div class="row mx-auto">
+    <input type="text" class="form-control col mr-2" (input)="filter($event)" placeholder="Filtrar por Nro. Socio, DNI, Nombre o Apellido">
+    <button class="btn btn-primary text-center align-middle col-2" [routerLink]="['/alumnos/nuevo']">
+        Añadir alumno
+        <i class="fas fa-plus"></i>
+    </button>
+</div>
+<div class="table-responsive p-0 mt-3 mb-2 border rounded">
+    <table class="table table-striped m-0">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center align-middle">Socio N°</th>
+                <th scope="col" class="text-center align-middle">DNI</th>
+                <th scope="col" class="text-center align-middle">Nombre</th>
+                <th scope="col" class="text-center align-middle">Apellido</th>
+                <th scope="col" class="text-center align-middle">Curso</th>
+                <th scope="col" class="text-center align-middle" colspan="2">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let alumno of alumnosFiltrados">
+                <td class="text-center align-middle">{{alumno.numeroSocio}}</td>
+                <td class="text-center align-middle">{{alumno.dni}}</td>
+                <td class="text-center align-middle">{{alumno.nombre}}</td>
+                <td class="text-center align-middle">{{alumno.apellido}}</td>
+                <td class="text-center align-middle">{{alumno.idCurso}}</td>
+                <td class="text-center align-middle" style="cursor: pointer;" [routerLink]="['/alumnos/modificar', alumno.numeroSocio]" routerLinkActive="active" title="Editar">
+                    <i class="fas fa-pencil-alt"></i>
+                </td>
+                <td class="text-center align-middle" style="cursor: pointer;" (click)="delete(alumno)" title="Eliminar">
+                    <i class="fas fa-trash"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="col-12 row mx-auto"> 
+    <div class="m-0 p-0 col">
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="row mx-auto py-2">
+    <app-nav class="col-3" *ngIf="expanded"></app-nav>
+    <div class="py-2 p-0 border-left" [ngClass]="{'col-9': expanded, 'col-12': !expanded}">
+        <div class="row mx-auto" [ngClass]="{'pb-2': expanded, 'pb-3': !expanded}">
+            <div class="col-1 p-0">
+                <button *ngIf="!home" class="btn p-0 border-right border-top border-bottom bg-light rounded-right" style="margin-left: -1%; border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important;" (click)="expanded=!expanded" [title]="expanded?'Ocultar menú':'Mostrar menú'">
+                    <svg *ngIf="!expanded" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z"/>
+                        <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z"/>
+                    </svg>
+                    <svg *ngIf="expanded" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M7.854 4.646a.5.5 0 0 1 0 .708L5.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z"/>
+                        <path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="text-center mx-auto col-10" *ngIf="!expanded" style="margin-bottom: -1rem!important;cursor: pointer;" [routerLink]="['/']">
+                <h2 class="text-center m-0">Marcela Barrera</h2>
+                <small class="mb-0 text-center mx-auto" style="position: relative; top: -.75rem !important; letter-spacing: 2px;">Gimnasia Artística</small>
+            </div>
+            <div class="col-1 p-0"></div>
+        </div>
+        <div class="px-2">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

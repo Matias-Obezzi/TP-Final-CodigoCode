@@ -1,0 +1,29 @@
+.list-group-item{
+    border-radius: 0 !important;
+    background-color: #f8f9fa;
+    border-left: #d9dcdf 1px solid !important;
+    border-right: #d9dcdf 1px solid !important;
+    border-top: none;
+    border-bottom: none;
+    color: rgba($color: #000000, $alpha: 0.7);
+}
+.list-group-item:last-child{
+    border-radius: 0 !important;
+    border-bottom-left-radius: .25rem !important;
+    border-bottom-right-radius: .25rem !important;
+    background-color: #f8f9fa;
+    border-left: #d9dcdf 1px solid !important;
+    border-right: #d9dcdf 1px solid !important;
+    border-top: none;
+    border-bottom: #d9dcdf 1px solid !important;
+    color: rgba($color: #000000, $alpha: 0.7);
+}
+
+.list-group-item.active{
+    color: rgba($color: #000000, $alpha: 1);
+    background-color: #d9dcdf;
+}
+
+.active{
+    background-color: rgba($color: #000000, $alpha: 0.2);
+}

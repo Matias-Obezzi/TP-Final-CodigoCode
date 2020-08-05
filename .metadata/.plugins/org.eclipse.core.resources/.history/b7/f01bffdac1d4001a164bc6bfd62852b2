@@ -1,0 +1,6 @@
+package edu.mobezzi.models;
+
+public class error {
+
+	public string code, message;
+}

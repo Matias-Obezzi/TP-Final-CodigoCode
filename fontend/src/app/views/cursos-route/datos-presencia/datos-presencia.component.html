@@ -1,0 +1,42 @@
+<div class="px-2 mx-auto my-2 row">
+    <h5 class="font-weight-bold col my-auto">Asistencia del curso: {{curso?curso.curso + ' - ' + curso.nivel + ' ' + curso.categoria:''}}</h5>
+    <button class="btn btn-primary text-center align-middle col-2" (click)="addColumn()">
+        Añadir clase
+        <i _ngcontent-ejn-c46="" class="fas fa-plus"></i>
+    </button>
+</div>
+<div class="table-responsive p-0 mb-2 border rounded">
+    <table class="table table-striped m-0" *ngIf="alumnos && asistencia">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center align-middle">Socio N°</th>
+                <th scope="col" class="text-center align-middle">Nombre y apellido</th>
+                <th scope="col" class="text-center align-middle" *ngFor="let clase of generarArray(getNumeroClases()), index as i">{{i+1}}</th>
+                <th scope="col" class="text-center align-middle">
+                    Asistencia total
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="alumnos.length>0">
+            <tr *ngFor="let alumno of alumnos">
+                <td class="text-center align-middle" colspan="1">{{alumno.numeroSocio}}</td>
+                <td class="text-center align-middle" colspan="1">{{alumno.apellido}}, {{alumno.nombre}}</td>
+                <td class="text-center align-middle text-light font-weight-bold border-right" style="cursor: pointer;" colspan="1" *ngFor="let clase of getClasesAlumno(alumno.numeroSocio)" [ngClass]="{'bg-danger': !clase.presente, 'bg-success': clase.presente}" (click)="changeState(clase, alumno)">{{clase.presente?'P':'A'}}</td>
+                <td class="text-center align-middle text-light font-weight-bold" *ngFor="let clase of generarArray(getClasesAlumno(alumno.numeroSocio)!=0?0:getNumeroClases())"></td>
+                <td class="text-center align-middle" colspan="1">{{getPorcentajeAsistencia(alumno.numeroSocio)}}%</td>
+            </tr>
+        </tbody><tbody *ngIf="alumnos.length==0">
+            <tr>
+                <td class="text-center align-middle" colspan="100">El curso no posee alumnos</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="col-12 row mx-auto"> 
+    <div class="m-0 p-0 col">
+    </div>
+    <div class="mx-auto col text-center my-auto align-middle" *ngIf="message" [ngClass]="{'text-danger': error, 'text-success': !error}">{{message}}</div>
+    <div class="m-0 p-0 col">
+        <button class="btn float-right" [ngClass]="{'btn-danger': error, 'btn-success': !error}" (click)="submit()">Guardar</button>
+    </div>
+</div>

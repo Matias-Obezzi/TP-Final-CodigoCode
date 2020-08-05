@@ -1,0 +1,30 @@
+package edu.mobezzi.responses;
+
+import edu.mobezzi.dao.AlumnoDTO;
+
+public class ResponseAlumno {
+
+	private boolean error;
+	private AlumnoDTO alumno;
+	private String message;
+	
+	public boolean isError() {
+		return error;
+	}
+	public void setError(boolean error) {
+		this.error = error;
+	}
+	public AlumnoDTO getAlumno() {
+		return alumno;
+	}
+	public void setAlumno(AlumnoDTO alumno) {
+		this.alumno = alumno;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+}

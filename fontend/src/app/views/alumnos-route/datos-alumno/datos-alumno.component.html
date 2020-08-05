@@ -1,0 +1,116 @@
+<div [formGroup]="formAlumno">
+    <h5 class="font-weight-bold px-2 mx-1">Datos del alumno:</h5>
+    <div class="row mx-auto">
+        <div class="col-6">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" type="text" class="form-control" placeholder="Nombre" formControlName="nombre" required autofocus>
+        </div>
+        <div class="col-6">
+            <label for="apellido">Apellido</label>
+            <input id="apellido" type="text" class="form-control" placeholder="Apellido" formControlName="apellido" required>
+        </div>
+    </div>
+    <div class="row mx-auto">
+        <div class="col-6">
+            <label for="dni">DNI</label>
+            <input id="dni" type="number" min="00000000" class="form-control" placeholder="DNI" formControlName="dni">
+        </div>
+        <div class="col-6">
+            <label for="fechaNacimiento">Fecha de nacimiento</label>
+            <input type="date" class="form-control" id="fechaNacimiento" formControlName="fechaNacimiento" (input)="edad($event)">
+        </div>
+    </div>
+    <div class="row mx-auto">
+        <div class="col-6">
+            <label for="email">Email</label>
+            <input id="email" type="email" class="form-control" placeholder="Email" formControlName="email">
+        </div>
+        <div class="col-6">
+            <label for="obraSocial">Obra social</label>
+            <input type="text" class="form-control" id="obraSocial" placeholder="Obra social" formControlName="obraSocial">
+        </div>
+    </div>
+    <div class="row mx-auto">
+        <div class="col-6">
+            <label for="certificado">Certificado</label>
+            <div class="input-group mb-3">
+                <div class="form-file">
+                    <input id="certificado" type="file" class="form-file-input" (change)="fileInput($event)">
+                    <label class="form-file-label" for="certificado">
+                        <span class="form-file-text">{{formAlumno.value.certificadoName?formAlumno.value.certificadoName:'Seleccionar archivo...'}}</span>
+                        <span class="form-file-button">Buscar</span>
+                    </label>
+                </div>
+                <button class="form-file-button rounded-right border" style="border-color: #ced4da !important" type="button"  data-toggle="modal" data-target="#previewCertificado">Ver</button>
+            </div>
+            <div class="modal fade" id="previewCertificado" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    <div class="col-12 d-block modal-content text-center">
+                        <div class="modal-header border-0">
+                            <p class="modal-title my-0 align-middle">Preview certificado con nombre de archivo: {{formAlumno.value.certificado?formAlumno.value.certificado.name:''}}</p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <img class="modal-content rounded-0" [src]="formAlumno.value.certificadoData" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <label for="curso">Curso</label>
+            <!-- <input type="number" class="form-control" id="curso" placeholder="Curso N°" formControlName="curso"> -->
+            <select class="form-select" formControlName="idCurso">
+                <option [value]="curso.curso" *ngFor="let curso of cursos">
+                    {{curso.nivel}} - {{curso.categoria}} de {{curso.edades}} años los {{curso.dias}} / {{curso.curso}}
+                </option>
+            </select>
+        </div>
+        <div class="col" *ngIf="formAlumno.value.numeroSocio">
+            <label>Número de socio</label>
+            <p class="form-control text-muted">{{formAlumno.value.numeroSocio}}</p>
+        </div>
+    </div>
+</div>
+<div *ngIf="menorEdad" class="my-2" [formGroup]="formTutor">
+    <h5 class="font-weight-bold px-2 mx-1">Datos del tutor/a</h5>
+    <div class="row mx-auto">
+        <div class="col-4">
+            <label for="nombreTutor">Nombre</label>
+            <input id="nombreTutor" type="text" class="form-control" placeholder="Nombre" formControlName="nombreTutor" required>
+        </div>
+        <div class="col-4">
+            <label for="apellidoTutor">Apellido</label>
+            <input id="apellidoTutor" type="text" class="form-control" placeholder="Apellido" formControlName="apellidoTutor" required>
+        </div>
+        <div class="col-4">
+            <label for="dniTutor">DNI</label>
+            <input id="dniTutor" type="number" min="00000000" class="form-control" placeholder="DNI" formControlName="dniTutor" required>
+        </div>
+    </div>
+    <div class="row mx-auto">
+        <div class="col-6">
+            <label for="telefono">Telefono</label>
+            <input type="text" class="form-control" id="telefono" formControlName="telefonoTutor" placeholder="+549110000000" required>
+        </div>
+        <div class="col-6">
+            <label for="emailTutor">Email</label>
+            <input id="emailTutor" type="email" class="form-control" placeholder="Email" formControlName="emailTutor" required>
+        </div>
+    </div>
+</div>
+<div class="col-12 px-3 py-2 text-center" [ngClass]="{'text-success': !error, 'text-danger': error}" *ngIf="message">
+    {{message}}
+</div>
+<div class="col-12 my-3 row mx-auto">
+    <div class="col">
+        <button class="btn btn-primary btn-block" [ngClass]="{shadow: formAlumno.valid && (!menorEdad || formTutor.valid)}" [disabled]="(!formAlumno.valid ||  (menorEdad && !formTutor.valid)) || pagado" (click)="pagar()">
+            {{pagado?'Mes pagado':'Confirmar pago del mes'}}
+        </button>
+    </div>
+    <div class="col">
+        <button class="btn btn-block" [ngClass]="{'shadow btn-success': formAlumno.valid && (!menorEdad || formTutor.valid), 'btn-danger': !(formAlumno.valid && (!menorEdad || formTutor.valid))}" [disabled]="!formAlumno.valid ||  (menorEdad && !formTutor.valid)" (click)="submit()">
+            {{datosAlumno?'Guardar':'Crear'}}
+        </button>
+    </div>
+</div>

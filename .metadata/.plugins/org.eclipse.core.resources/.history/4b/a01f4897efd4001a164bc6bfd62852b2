@@ -1,0 +1,114 @@
+package edu.mobezzi.models;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Alumno {
+
+	private int numeroSocio;	
+	private String nombre;
+	private String apellido;
+	private String email;
+	private String fechaNacimiento;
+	private String obraSocial;
+	private String certificado;
+	private String dni;
+	private String idCurso;
+	private String nombreTutor;
+	private String apellidoTutor;
+	private String dniTutor;
+	private String emailTutor;
+	private String telefonoTutor;
+	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+	public String getObraSocial() {
+		return obraSocial;
+	}
+	public void setObraSocial(String obraSocial) {
+		this.obraSocial = obraSocial;
+	}
+	public String getCertificado() {
+		return certificado;
+	}
+	public void setCertificado(String certificado) {
+		this.certificado = certificado;
+	}
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	public String getCurso() {
+		return idCurso;
+	}
+	public void setCurso(String idCurso) {
+		this.idCurso = idCurso;
+	}
+	public int getNumeroSocio() {
+		return numeroSocio;
+	}
+	public void setNumeroSocio(int numeroSocio) {
+		this.numeroSocio = numeroSocio;
+	}
+	public String getIdCurso() {
+		return idCurso;
+	}
+	public void setIdCurso(String idCurso) {
+		this.idCurso = idCurso;
+	}
+	public String getNombreTutor() {
+		return nombreTutor;
+	}
+	public void setNombreTutor(String nombreTutor) {
+		this.nombreTutor = nombreTutor;
+	}
+	public String getApellidoTutor() {
+		return apellidoTutor;
+	}
+	public void setApellidoTutor(String apellidoTutor) {
+		this.apellidoTutor = apellidoTutor;
+	}
+	public String getDniTutor() {
+		return dniTutor;
+	}
+	public void setDniTutor(String dniTutor) {
+		this.dniTutor = dniTutor;
+	}
+	public String getEmailTutor() {
+		return emailTutor;
+	}
+	public void setEmailTutor(String emailTutor) {
+		this.emailTutor = emailTutor;
+	}
+	public String getTelefonoTutor() {
+		return telefonoTutor;
+	}
+	public void setTelefonoTutor(String telefonoTutor) {
+		this.telefonoTutor = telefonoTutor;
+	}
+	
+}

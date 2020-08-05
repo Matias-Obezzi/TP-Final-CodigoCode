@@ -1,0 +1,18 @@
+package edu.mobezzi.responses;
+
+import edu.mobezzi.dao.AlumnoDTO;
+
+public class CustomResponseAlumno implements CustomResponse<Response<AlumnoDTO>> {
+
+	private Response<AlumnoDTO> response;
+	
+	public CustomResponseAlumno(boolean error, String message, AlumnoDTO alumno) {
+		this.response =  new Response<AlumnoDTO>(error, message, asitencia);;
+	}
+	
+	@Override
+	public Response<AlumnoDTO> getResponse() {
+		return this.response;
+	}
+	
+}

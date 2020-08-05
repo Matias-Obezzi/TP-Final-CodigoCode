@@ -1,0 +1,201 @@
+package edu.mobezzi.dao;
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "alumnos")
+public class AlumnoDTO {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int numeroSocio;
+	
+	@Column(name="nombre")
+	private String nombre;
+
+	@Column(name="apellido")
+	private String apellido;
+
+	@Column(name="email")
+	private String email;
+
+	@Column(name="fecha_nacimiento")
+	private String fechaNacimiento;
+
+	@Column(name="obra_social")
+	private String obraSocial;
+
+	@Column(name="certificadoName")
+	private String certificadoName;
+
+	@Column(name="certificadoData")
+	private String certificadoName;
+
+	@Column(name="dni")
+	private String dni;
+
+	@Column(name="id_curso")
+	private String idCurso;
+
+	@Column(name="nombre_tutor")
+	private String nombreTutor;
+
+	@Column(name="apellido_tutor")
+	private String apellidoTutor;
+
+	@Column(name="dni_tutor")
+	private String dniTutor;
+	
+	@Column(name="email_tutor")
+	private String emailTutor;
+	
+	@Column(name="telefono_tutor")
+	private String telefonoTutor;
+
+	public boolean valido() {
+		return
+			this.nombre != null &&
+			this.apellido != null &&
+			this.dni !=null &&
+			this.email != null && 
+			this.fechaNacimiento != null &&
+			this.certificado != null &&
+			this.obraSocial != null &&
+			this.idCurso != null && // HASTA ACA DATOS BASICOS
+			(this.mayorDeEdad() || ( // VALIDA QUE AL SER MENOR DE EDAD POSEA LOS DATOS DEL TUTOR
+				this.nombreTutor != null &&
+				this.apellidoTutor != null &&
+				this.dniTutor != null &&
+				this.emailTutor != null &&
+				this.telefonoTutor != null
+			));
+		
+	}
+	
+	public boolean mayorDeEdad() {
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    	LocalDate birthDate = LocalDate.parse(this.fechaNacimiento, formatter);
+    	LocalDate currentDate = LocalDate.now();
+        return Period.between(birthDate, currentDate).getYears() >= 18;
+    }
+	
+	public int getNumeroSocio() {
+		return this.numeroSocio;
+	}
+
+	public String getNombre() {
+		return this.nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return this.apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getFechaNacimiento() {
+		return this.fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getObraSocial() {
+		return obraSocial;
+	}
+
+	public void setObraSocial(String obraSocial) {
+		this.obraSocial = obraSocial;
+	}
+
+	public String getDni() {
+		return this.dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getIdCurso() {
+		return this.idCurso;
+	}
+
+	public void setIdCurso(String curso) {
+		this.idCurso = curso;
+	}
+
+	public String getNombreTutor() {
+		return this.nombreTutor;
+	}
+
+	public void setNombreTutor(String nombreTutor) {
+		this.nombreTutor = nombreTutor;
+	}
+
+	public String getApellidoTutor() {
+		return this.apellidoTutor;
+	}
+
+	public void setApellidoTutor(String apellidoTutor) {
+		this.apellidoTutor = apellidoTutor;
+	}
+
+	public String getDniTutor() {
+		return this.dniTutor;
+	}
+
+	public void setDniTutor(String dniTutor) {
+		this.dniTutor = dniTutor;
+	}
+
+	public String getEmailTutor() {
+		return this.emailTutor;
+	}
+
+	public void setEmailTutor(String emailTutor) {
+		this.emailTutor = emailTutor;
+	}
+
+	public String getTelefonoTutor() {
+		return this.telefonoTutor;
+	}
+
+	public void setTelefonoTutor(String telefonoTutor) {
+		this.telefonoTutor = telefonoTutor;
+	}
+	
+	public void mostrar() {
+		System.out.println("Numero de socio: " + this.numeroSocio);
+		System.out.println("\nNombre y apellido: " + this.nombre + " " + this.apellido);
+		System.out.println("\nDNI: " + this.dni);
+		System.out.println("\nFecha de nacimiento: " + this.fechaNacimiento);
+		System.out.println("\nObra social: " + this.obraSocial);
+		System.out.println("\nId curso: " + this.idCurso);
+		System.out.println("\nEmail: " + this.email);
+	}
+	
+}

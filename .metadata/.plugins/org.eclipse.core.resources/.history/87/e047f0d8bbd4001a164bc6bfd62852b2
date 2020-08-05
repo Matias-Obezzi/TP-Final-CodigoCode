@@ -1,0 +1,8 @@
+package edu.mobezzi.models;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Alumno {
+
+}

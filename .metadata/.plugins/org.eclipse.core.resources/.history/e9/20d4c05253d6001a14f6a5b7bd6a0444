@@ -1,0 +1,26 @@
+package edu.mobezzi.dao;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "asistencia")
+public class AsistenciaDAO {
+
+	 @Id
+	 private String cursoClaseAlumno;
+
+	 @Column(name = "clase")
+	 private String clase;
+	 
+	 @Column(name = "id_curso")
+	 private String idCurso;
+	 
+	 @Column(name = "numero_socio")
+	 private String numeroSocio;
+	 
+	 
+	 
+}

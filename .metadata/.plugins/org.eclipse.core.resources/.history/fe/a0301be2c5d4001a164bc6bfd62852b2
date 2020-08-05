@@ -1,0 +1,29 @@
+package edu.mobezzi.responses;
+
+public class ResponseAlumno {
+
+	public boolean error;
+	public AlumnoDTO alumno;
+
+	public ResponseMessage(Boolean error, AlumnoDTO alumno) {
+		this.error = error;
+		this.alumno = alumno;
+	}
+	
+	public Boolean getCode() {
+		return this.error;
+	}
+
+	public void setCode(Boolean error) {
+		this.error = error;
+	}
+
+	public String getMessage() {
+		return this.message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+}

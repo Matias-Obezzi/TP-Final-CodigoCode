@@ -1,0 +1,7 @@
+package edu.mobezzi.responses;
+
+public interface CustomResponse<T> {
+
+	
+	public T getResponse();
+}

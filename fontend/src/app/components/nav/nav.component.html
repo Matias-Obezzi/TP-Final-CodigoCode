@@ -1,0 +1,29 @@
+<div class="text-center mx-auto" style="margin-bottom: -1rem!important;cursor: pointer;" [routerLink]="['/']">
+  <h2 class="text-center m-0">Marcela Barrera</h2>
+  <small class="mb-0 text-center mx-auto" style="position: relative; top: -.75rem !important; letter-spacing: 2px;">Gimnasia Artística</small>
+</div>
+<div class="py-3 sticky-top">
+  <div class="mb-2">
+    <a class="btn btn-primary w-100" data-toggle="collapse" href="#collapse-alumno" role="button" aria-expanded="false" aria-controls="collapse-alumno">
+      Alumno
+    </a>
+    <div class="collapse list-group mx-2 show" [ngClass]="{show: route?route.indexOf('/alumnos')!=-1:false}" id="collapse-alumno">
+      <a [routerLink]="['/alumnos/nuevo']" [ngClass]="{active: route=='/alumnos/nuevo'}" class="list-group-item text-center border-left border-right">Nuevo</a>
+      <a [routerLink]="['/alumnos']" [ngClass]="{active: route=='/alumnos'}" class="list-group-item text-center border-left border-right">Listado</a>
+    </div>
+  </div>
+  <div class="mb-2">
+    <a class="btn btn-primary w-100" data-toggle="collapse" href="#collapse-asistencia" role="button" aria-expanded="false" aria-controls="collapse-asistencia">
+      Cursos
+    </a>
+    <div class="collapse list-group mx-2" [ngClass]="{show: route?route.indexOf('/cursos')!=-1:false}" id="collapse-asistencia">
+      <a [routerLink]="['/cursos/nuevo']" [ngClass]="{active: route=='/cursos/nuevo'}" class="list-group-item text-center">Nuevo</a>
+      <a [routerLink]="['/cursos']"  [ngClass]="{active: route=='/cursos'}" class="list-group-item text-center">Listado</a>
+    </div>
+  </div>
+  <div class="mb-2">
+    <a class="btn btn-primary mb-2 w-100" role="button" [routerLink]="['/analitica']">
+      Analitica
+    </a>
+  </div>
+</div>

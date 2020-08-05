@@ -1,0 +1,68 @@
+package edu.mobezzi.rest.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import edu.mobezzi.dao.CursoDTO;
+import edu.mobezzi.dao.repositories.CursoDtoRepository;
+import edu.mobezzi.responses.CustomResponseCurso;
+import edu.mobezzi.responses.Response;
+
+@CrossOrigin
+@RestController
+public class CursoController {
+
+	@Autowired
+	private CursoDtoRepository cursoRepository;
+	
+	@GetMapping(value="cursos")
+	public List<CursoDTO> getCursos(){
+		return this.cursoRepository.findAll();
+	}
+	
+	@GetMapping(value = "cursos/{id}")
+	public CustomResponseCurso getCursoById(@PathVariable int id) {
+		try {
+			return new CustomResponseCurso(new Response<CursoDTO>(false, "Se encontro un curso con ese id", this.cursoRepository.findById(id).get()));
+		}catch(Exception e) {
+			return new CustomResponseCurso(new Response<CursoDTO>(false, e.getMessage(), null));
+		}
+	}
+	
+	@PostMapping(value = "cursos")
+	public CustomResponseCurso addCurso(@RequestBody CursoDTO curso) {
+		if(curso.valido()) {
+			try {
+				this.cursoRepository.save(curso);
+				return new CustomResponseCurso(new Response<CursoDTO>(false, "Curso guardado satisfactoriamente", curso));
+			}catch(Exception e) {
+				return new CustomResponseCurso(new Response<CursoDTO>(true, e.getMessage(), null));
+			}
+		}else {
+			return new CustomResponseCurso(new Response<CursoDTO>(true, "Faltan campos obligatiorios", null));
+		}
+	}
+	
+	@PutMapping(value = "cursos")
+	public CustomResponseCurso addCurso(@RequestBody CursoDTO curso) {
+		if(curso.valido()) {
+			try {
+				CursoDTO modificacion = this.cursoRepository.findById(curso.getCurso()).get();
+				return new CustomResponseCurso(new Response<CursoDTO>(false, "Curso guardado satisfactoriamente", curso));
+			}catch(Exception e) {
+				return new CustomResponseCurso(new Response<CursoDTO>(true, e.getMessage(), null));
+			}
+		}else {
+			return new CustomResponseCurso(new Response<CursoDTO>(true, "Faltan campos obligatiorios", null));
+		}
+	}
+	
+}

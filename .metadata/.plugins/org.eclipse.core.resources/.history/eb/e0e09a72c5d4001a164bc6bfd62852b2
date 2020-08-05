@@ -1,0 +1,29 @@
+package edu.mobezzi.models;
+
+public class ResponseMessage {
+
+	public boolean error;
+	public String message;
+
+	public ResponseMessage(Boolean error, String message) {
+		this.error = error;
+		this.message = message;
+	}
+	
+	public Boolean getCode() {
+		return this.error;
+	}
+
+	public void setCode(Boolean error) {
+		this.error = error;
+	}
+
+	public String getMessage() {
+		return this.message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+}

@@ -1,0 +1,39 @@
+<div class="my-2" [formGroup]="formCurso">
+    <h5 class="font-weight-bold px-2 mx-1">Datos del curso</h5>
+    <div class="row mx-auto">
+        <div class="col-4">
+            <label for="nivel">Nivel</label>
+            <input type="text" class="form-control" formControlName="nivel" required autofocus>
+        </div>
+        <div class="col-4">
+            <label for="categoria">Categoría</label>
+            <input type="text" class="form-control" formControlName="categoria" required>
+        </div>
+        <div class="col-4">
+            <label for="edades">Edades</label>
+            <input class="form-control" type="text" id="edades" formControlName="edades" required placeholder="Por ej: 4, 5, 6, 7 y 8">
+        </div>
+    </div>
+    <div class="row mx-auto">
+        <div class="col" *ngIf="formCurso.value.curso">
+            <label for="dias">Código del curso</label>
+            <div class="form-control">{{formCurso.value.curso}}</div>
+        </div>
+        <div class="col">
+            <label for="dias">Días de entrenamiento</label>
+            <input class="form-control" type="text" id="dias" formControlName="dias" required placeholder="Por ej: lunes, martes y jueves">
+        </div>
+        <div class="col">
+            <label for="valor">Valor</label>
+            <input class="form-control" type="number" min="0" id="valor" formControlName="valor" required placeholder="Valor">
+        </div>
+    </div>
+</div>
+<div class="col-12 px-3 py-2 text-center" [ngClass]="{'text-success': !error, 'text-danger': error}" *ngIf="message">
+    {{message}}
+</div>
+<div class="col-12">
+    <button class="btn btn-primary btn-block" [ngClass]="{shadow: formCurso.valid}" [disabled]="!formCurso.valid" (click)="submit()">
+        {{datosCurso?'Guardar':'Crear'}}
+    </button>
+</div>
