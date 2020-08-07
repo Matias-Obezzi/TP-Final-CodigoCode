@@ -23,19 +23,24 @@ export class CursosComponent implements OnInit {
   }
 
   filter(event: any){
-    var text = event.target.value.toLowerCase();
+    var text = event.target.value.toLowerCase().trim();
     if(text.length==0){
       this.cursosFiltrados = this.cursos;
     }else{
-      // var onlyNumbers = /^\d+$/.test(text);
-      // var onlyLetters = /^[a-zA-Z ]+$/.test(text);
+      var onlyNumbers = /^\d+$/.test(text);
+      var onlyLetters = /^[a-zA-Z ]+$/.test(text);
       this.cursosFiltrados = this.cursos.filter(elem => {
-        return (elem.categoria).toLowerCase().indexOf(text)!=-1 ||
-          (elem.nivel).toLowerCase().indexOf(text)!=-1 ||
-          elem.curso.toString().indexOf(text)!=-1 ||
-          elem.edades.toString().trim().toLowerCase().indexOf(text)!=-1 ||
-            (elem.edades.toString().trim().toLowerCase().indexOf("adelante")!=-1 &&
-            elem.edades.toString().trim().toLowerCase().split(" ")[0] <= text);
+        if(onlyNumbers){
+          return elem.curso.toString().indexOf(text)!=-1 ||
+            elem.edades.toString().trim().toLowerCase().indexOf(text) != -1 ||
+            elem.edades.toString().trim().toLowerCase().indexOf("cualquiera")!=-1 ||
+              (elem.edades.toString().trim().toLowerCase().indexOf("adelante")!=-1 &&
+              parseInt(elem.edades.toString().trim().toLowerCase().split(" ")[0]) <= parseInt(text));
+        }else if(onlyLetters){
+          return elem.categoria.toLowerCase().indexOf(text)!=-1 ||
+            elem.nivel.toLowerCase().indexOf(text)!=-1 ||
+            elem.dias.toLowerCase().indexOf(text)!=-1
+        }
       });
     }
   }

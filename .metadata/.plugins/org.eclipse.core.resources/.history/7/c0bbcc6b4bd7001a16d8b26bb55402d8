@@ -1,8 +1,10 @@
 package edu.mobezzi.rest.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.mobezzi.dao.AlumnoDTO;
 import edu.mobezzi.dao.repositories.AlumnoDtoRepository;
 import edu.mobezzi.responses.CustomResponseAlumno;
-import edu.mobezzi.responses.Response;
 
 @CrossOrigin
 @RestController
@@ -32,10 +33,27 @@ public class AlumnoController {
 	@GetMapping(value="alumnos/{id}")
 	public CustomResponseAlumno getAlumnoById(@PathVariable int id){
 		try {
-			return new CustomResponseAlumno(new Response<AlumnoDTO>(false, "Se encontro un alumno con ese número de socio", this.alumnoRepository.findById(id).get()));
+			return new CustomResponseAlumno(false, "Se encontro un alumno con ese número de socio", this.alumnoRepository.findById(id).get());
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
-			return new CustomResponseAlumno(new Response<AlumnoDTO>(true, "No se encontro un alumno con ese número de socio", null));
+			return new CustomResponseAlumno(true, "No se encontro un alumno con ese número de socio", null);
+		}
+	}
+	
+	@GetMapping(value="alumnos/curso/{id}")
+	public List<AlumnoDTO> getAlumnoByIdCurso(@PathVariable int id){
+		try {
+			List<AlumnoDTO> alumnos = this.alumnoRepository.findAll();
+			List<AlumnoDTO> alumnosCurso = new ArrayList<AlumnoDTO>();
+			for (AlumnoDTO alumno : alumnos) {
+				if(alumno.getIdCurso() == id) {
+					alumnosCurso.add(alumno);
+				}
+			}
+			return alumnosCurso;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
 		}
 	}
 	
@@ -44,61 +62,64 @@ public class AlumnoController {
 		if(alumno.valido()) {
 			try {
 				this.alumnoRepository.save(alumno);
-				return new CustomResponseAlumno(new Response<AlumnoDTO>(false, "Alumno guardado satisfactoriamente", alumno));
+				return new CustomResponseAlumno(false, "Alumno guardado satisfactoriamente", alumno);
 			}catch(Exception e) {
-				return new CustomResponseAlumno(new Response<AlumnoDTO>(true, e.getMessage(), null));
+				return new CustomResponseAlumno(true, e.getMessage(), null);
 			}
 		}else {
-			return new CustomResponseAlumno(new Response<AlumnoDTO>(true, "Faltan campos obligatiorios", null));
+			return new CustomResponseAlumno(true, "Faltan campos obligatiorios", null);
 		}
 	}
 	
 	@PutMapping(value="alumnos")
 	public CustomResponseAlumno modifyAlumno(@RequestBody AlumnoDTO alumno){
+		alumno.mostrar();
 		if(alumno.valido()) {
 			try {
-				AlumnoDTO modificacion = this.alumnoRepository.findById(alumno.getNroSocio()).get();
+				AlumnoDTO modificacion = this.alumnoRepository.findById(alumno.getNumeroSocio()).get();
 				modificacion.setNombre(alumno.getNombre());
 				modificacion.setApellido(alumno.getApellido());
 				modificacion.setDni(alumno.getDni());
 				modificacion.setEmail(alumno.getEmail());
 				modificacion.setFechaNacimiento(alumno.getFechaNacimiento());
-				modificacion.setCertificado(alumno.getCertificado());
+				modificacion.setCertificadoData(alumno.getCertificadoData());
+				modificacion.setCertificadoName(alumno.getCertificadoName());
 				modificacion.setObraSocial(alumno.getObraSocial());
-				modificacion.setCurso(alumno.getCurso());
+				modificacion.setIdCurso(alumno.getIdCurso());
 				modificacion.setNombreTutor(alumno.getNombreTutor());
 				modificacion.setApellidoTutor(alumno.getApellidoTutor());
 				modificacion.setDniTutor(alumno.getDniTutor());
 				modificacion.setTelefonoTutor(alumno.getTelefonoTutor());
 				modificacion.setEmailTutor(alumno.getEmailTutor());
+				modificacion.setFechaPago(alumno.getFechaPago());
 				this.alumnoRepository.save(modificacion);
-				return new CustomResponseAlumno(new Response<AlumnoDTO>(false, "Alumno modificado correctamente", modificacion));
+				return new CustomResponseAlumno(false, "Alumno modificado correctamente", modificacion);
 			}catch(Exception e) {
-				return new CustomResponseAlumno(new Response<AlumnoDTO>(true,
+				return new CustomResponseAlumno(true,
 					e.getMessage()=="No value present"?
 						"No se encontro un alumno con ese número de socio":
 						e.getMessage()=="could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement"?
 								"Falta completar algún dato, por favor revisa que esten todos":
 								e.getMessage()
-					, null));
+					, null);
 			}
 		}else {
-			return new CustomResponseAlumno(new Response<AlumnoDTO>(true, "Faltan campos obligatiorios", null));
+			return new CustomResponseAlumno(true, "Faltan campos obligatiorios", null);
 		}
 	}
 	
 	@DeleteMapping(value="alumnos/{id}")
 	public CustomResponseAlumno deleteAlumno(@PathVariable int id){
-		System.out.println(alumno.getNroSocio());
 		try {
+			AlumnoDTO borrar = this.alumnoRepository.findById(id).get();
 			this.alumnoRepository.deleteById(id);
-			return new CustomResponseAlumno(new Response<AlumnoDTO>(false,
+			return new CustomResponseAlumno(false,
 					"Alumno eliminado con éxito"
-					, id));
+					, borrar);
 		}catch(Exception e) {
-			return new CustomResponseAlumno(new Response<AlumnoDTO>(true,
+			return new CustomResponseAlumno(true,
 				e.getMessage()
-				, null));
+				, null);
 		}
 	}
 	

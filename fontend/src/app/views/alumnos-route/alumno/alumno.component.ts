@@ -21,22 +21,19 @@ export class AlumnoComponent implements OnInit {
   }
 
   filter(event: any){
-    var text = event.target.value;
+    var text = event.target.value.toLowerCase();
     if(text.length==0){
       this.alumnosFiltrados = this.alumnos;
     }else{
       var onlyNumbers = /^\d+$/.test(text);
-      var onlyLetters = /^[a-zA-Z]+$/.test(text);
-      if(onlyLetters){
+      if(onlyNumbers){
         this.alumnosFiltrados = this.alumnos.filter(elem => {
-          return (elem.nombre).toLowerCase().indexOf(text)!=-1 || (elem.apellido).toLowerCase().indexOf(text)!=-1;
+          return elem.dni.toString().indexOf(text)!=-1 || elem.numeroSocio.toString().indexOf(text)!=-1 || elem.idCurso.toString().indexOf(text)!=-1;
         });
-      }else if(onlyNumbers){
+      }else {
         this.alumnosFiltrados = this.alumnos.filter(elem => {
-          return elem.dni.toString().indexOf(text)!=-1 || elem.numeroSocio.toString().indexOf(text)!=-1 || elem.curso.toString().indexOf(text)!=-1;
+          return elem.nombre.toLowerCase().indexOf(text)!=-1 || elem.apellido.toLowerCase().indexOf(text)!=-1;
         });
-      }else{
-        console.error("error");
       }
     }
   }

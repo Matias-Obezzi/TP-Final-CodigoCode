@@ -23,7 +23,6 @@
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.time.ZoneId"/>
 <fullyQualifiedTypeName name="java.time.format.DateTimeFormatter"/>
-<fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.CrossOrigin"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
@@ -52,4 +51,5 @@
 <fullyQualifiedTypeName name="edu.mobezzi.dao.AsistenciaDTO"/>
 <fullyQualifiedTypeName name="edu.mobezzi.responses.CustomResponseAsistencia"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
 </qualifiedTypeNameHistroy>
